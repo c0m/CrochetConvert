@@ -1,12 +1,12 @@
 ﻿@page "/"
 @using CrochetConvert.Shared
 
-<textarea id="input-box" placeholder="Input">
+<textarea id="input-box" @bind="InputBoxText" placeholder="Input">
 </textarea>
 
 <div class="convert-buttons">
-    <button class="btn btn-primary" @onclick="()=>CreateOutputText(0)">US to UK</button>
-    <button class="btn btn-primary" @onclick="()=>CreateOutputText(1)">UK to US</button>
+    <button class="btn btn-primary" @onclick="()=>CreateOutputText(0)">UK to US</button>
+    <button class="btn btn-primary" @onclick="()=>CreateOutputText(1)">US to UK</button>
 </div>
     
 
