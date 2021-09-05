@@ -83,7 +83,7 @@ namespace CrochetConvert.Pages
 
         private string ConvertToUS()
         {
-            string convertToUSRegex = @"ss|dc|htr|tr|hdc|dtr|trtr|yoh|tension";
+            string convertToUSRegex = @"\b(ss|dc|htr|tr|hdc|dtr|trtr|yoh|tension)\b";
             string output = InputBoxText;
             Regex reg = new Regex(convertToUSRegex, RegexOptions.IgnoreCase);
             output = reg.Replace(output, match =>
@@ -95,7 +95,7 @@ namespace CrochetConvert.Pages
 
         private string ConvertToUK()
         {
-            string convertToUKRegex = @"sl st|sc|hdc|dc|htr|tr|dtr|yo|gauge";
+            string convertToUKRegex = @"\b(sl st|sc|hdc|dc|htr|tr|dtr|yo|gauge)\b";
             string output = InputBoxText;
             Regex reg = new Regex(convertToUKRegex, RegexOptions.IgnoreCase);
             output = reg.Replace(output, match =>
