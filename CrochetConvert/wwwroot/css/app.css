@@ -99,6 +99,7 @@ app {
 
 .content {
     padding-top: 1.1rem;
+    margin: auto;
 }
 
 .navbar-toggler {
@@ -180,4 +181,51 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+}
+
+.title-container{
+    text-align:center;
+    padding: 1%
+}
+
+    .title-container .h1 {
+        font-size: xx-large;
+        font-weight: 800;
+    }
+
+.subtitle-text {
+    font-weight: 600;
+    color: #827b00;
+}
+
+.convert-buttons-container {
+    display: flex;
+    margin: auto;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5%;
+    gap: 2%;
+}
+
+    .convert-buttons-container .btn {
+        color: black;
+        font-weight: 500;
+        background-color: white;
+        border-color: black;
+    }
+
+.text-box-container {
+    display: flex;
+    margin: auto;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    padding: 3%;
+    gap: 2.5%;
+}
+
+.text-box {
+    height: 500px;
+    width: 50%;
 }

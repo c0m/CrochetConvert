@@ -1,14 +1,20 @@
 ﻿@page "/"
 @using CrochetConvert.Shared
 
-<textarea id="input-box" @bind="InputBoxText" placeholder="Input">
-</textarea>
+<div class="title-container">
+    <h1>Crochet Convert</h1>
+    <div class="subtitle-text">A simple converter for translating between US and UK crochet patterns</div>
+</div> 
 
-<div class="convert-buttons">
+<div class="convert-buttons-container">
     <button class="btn btn-primary" @onclick="()=>CreateOutputText(0)">UK to US</button>
     <button class="btn btn-primary" @onclick="()=>CreateOutputText(1)">US to UK</button>
 </div>
-    
 
-<textarea id="output-box" @bind="OutputBoxText" placeholder="Output" readonly>
-</textarea>
+<div class="text-box-container">
+    <textarea class="text-box" @bind="InputBoxText" placeholder="Input">
+    </textarea>
+
+    <textarea class="text-box" @bind="OutputBoxText" placeholder="Output" readonly>
+    </textarea>
+</div>
