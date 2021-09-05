@@ -79,22 +79,29 @@ namespace CrochetConvert.Pages
             { "tension", "gauge" }
         };
 
-        public string convertFromUSRegex= "/\b(?:sl st|sc|hdc|dc|htr|tr|dtr|yo|gauge)\b/gi";
+        
 
         private string ConvertToUS()
         {
-            return InputBoxText.UKtoUS();
+            string convertToUSRegex = @"ss|dc|htr|tr|hdc|dtr|trtr|yoh|tension";
+            string output = InputBoxText;
+            Regex reg = new Regex(convertToUSRegex, RegexOptions.IgnoreCase);
+            output = reg.Replace(output, match =>
+            {
+                return UKtoUSDictionary[match.ToString()];
+            });
+            return output;
         }
 
         private string ConvertToUK()
         {
+            string convertToUKRegex = @"sl st|sc|hdc|dc|htr|tr|dtr|yo|gauge";
             string output = InputBoxText;
-            string pattern;
-            foreach (string s in UStoUKDictionary.Keys)
-            {
-                pattern = @"\b" + s + @"\b"; // match on word boundaries
-                output = Regex.Replace(output, pattern, UStoUKDictionary[s], RegexOptions.IgnoreCase);
-            }
+            Regex reg = new Regex(convertToUKRegex, RegexOptions.IgnoreCase);
+            output = reg.Replace(output, match =>
+                            {
+                                return UStoUKDictionary[match.ToString()];
+                            });
             return output;
         }
     }
