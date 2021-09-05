@@ -8,40 +8,14 @@ using System.Text.RegularExpressions;
 
 namespace CrochetConvert.Pages
 {
-    public static class StringExtension
-    {
-        public static string UStoUK(this string s)
-        {
-            return new StringBuilder(s)
-                //abbr replacement
-                  .Replace("dc", "sc")
-                  .Replace("sl st", "ss")
-                  .Replace("htr", "hdc")
-                  .Replace("dtr", "tr")
-                  .Replace("ttr", "tr")
-                  .Replace("tr", "dc")
-                  .ToString();
-        }
-
-        public static string UKtoUS(this string s)
-        {
-            return new StringBuilder(s)
-                  //abbr replacement
-                  .Replace("sc", "dc")
-                  .Replace("ss", "sl st")
-                  .Replace("hdc", "htr")
-                  .Replace("tr", "dtr")
-                  .Replace("tr", "ttr")
-                  .Replace("dc", "tr")
-                  .ToString();
-        }
-    }
-
     public partial class Index : ComponentBase
     {
         string OutputBoxText { get; set; } = string.Empty;
         string InputBoxText { get; set; } = string.Empty;
-
+        /// <summary>
+        /// Check to see which button the user pressed, then convert text accordingly
+        /// </summary>
+        /// <param name="mode">Passed by the button</param>
         private void CreateOutputText(int mode)
         {
             //since there are only two ways this can go we'll just if/else
@@ -78,12 +52,14 @@ namespace CrochetConvert.Pages
             { "yoh", "yo" },
             { "tension", "gauge" }
         };
-
-        
-
+        private readonly string convertToUKRegex = @"\b(sl st|sc|hdc|dc|htr|tr|dtr|yo|gauge)\b";    // bounded regex to find these words for the dictionary
+        private readonly string convertToUSRegex = @"\b(ss|dc|htr|tr|hdc|dtr|trtr|yoh|tension)\b";
+        /// <summary>
+        /// This takes the text from the input box and converts the instructions to the US standard
+        /// </summary>
+        /// <returns>Converted text</returns>
         private string ConvertToUS()
         {
-            string convertToUSRegex = @"\b(ss|dc|htr|tr|hdc|dtr|trtr|yoh|tension)\b";
             string output = InputBoxText;
             Regex reg = new Regex(convertToUSRegex, RegexOptions.IgnoreCase);
             output = reg.Replace(output, match =>
@@ -92,10 +68,12 @@ namespace CrochetConvert.Pages
             });
             return output;
         }
-
+        /// <summary>
+        /// This takes the text from the input box and converts the instructions to the UK standard
+        /// </summary>
+        /// <returns>Converted text</returns>
         private string ConvertToUK()
         {
-            string convertToUKRegex = @"\b(sl st|sc|hdc|dc|htr|tr|dtr|yo|gauge)\b";
             string output = InputBoxText;
             Regex reg = new Regex(convertToUKRegex, RegexOptions.IgnoreCase);
             output = reg.Replace(output, match =>
