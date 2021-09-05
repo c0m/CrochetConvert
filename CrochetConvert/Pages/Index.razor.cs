@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using System.Text.RegularExpressions;
 
 namespace CrochetConvert.Pages
 {
@@ -35,6 +36,7 @@ namespace CrochetConvert.Pages
                   .ToString();
         }
     }
+
     public partial class Index : ComponentBase
     {
         string OutputBoxText { get; set; } = string.Empty;
@@ -53,6 +55,32 @@ namespace CrochetConvert.Pages
             }
         }
 
+        public Dictionary<string, string> UStoUKDictionary = new Dictionary<string, string> {
+            { "sl st", "ss" },
+            { "sc", "dc" },
+            { "hdc", "htr" },
+            { "dc", "tr" },
+            { "htr", "hdc" },
+            { "tr", "dtr" },
+            { "dtr", "trtr" },
+            { "yo", "yoh" },
+            { "gauge", "tension" }
+        };
+
+        public Dictionary<string, string> UKtoUSDictionary = new Dictionary<string, string> {
+            { "ss", "sl st" },
+            { "dc", "sc" },
+            { "htr", "hdc" },
+            { "tr", "dc" },
+            { "hdc", "htr" },
+            { "dtr", "tr" },
+            { "trtr", "dtr" },
+            { "yoh", "yo" },
+            { "tension", "gauge" }
+        };
+
+        public string convertFromUSRegex= "/\b(?:sl st|sc|hdc|dc|htr|tr|dtr|yo|gauge)\b/gi";
+
         private string ConvertToUS()
         {
             return InputBoxText.UKtoUS();
@@ -60,7 +88,14 @@ namespace CrochetConvert.Pages
 
         private string ConvertToUK()
         {
-            return InputBoxText.UStoUK();
+            string output = InputBoxText;
+            string pattern;
+            foreach (string s in UStoUKDictionary.Keys)
+            {
+                pattern = @"\b" + s + @"\b"; // match on word boundaries
+                output = Regex.Replace(output, pattern, UStoUKDictionary[s], RegexOptions.IgnoreCase);
+            }
+            return output;
         }
     }
 }
